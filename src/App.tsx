@@ -25,12 +25,14 @@ import {
   Text,
   Textarea,
   useDisclosure,
+  useToast,
   VisuallyHidden,
 } from '@chakra-ui/react';
 import './App.css';
 
 function App() {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const toast = useToast();
 
   return (
     <div>
@@ -175,7 +177,18 @@ function App() {
             <Button variant="ghost" onClick={onClose}>
               Cancelar
             </Button>
-            <Button ml="3" colorScheme="purple" onClick={onClose}>
+            <Button
+              ml="3"
+              colorScheme="purple"
+              onClick={() => {
+                toast({
+                  title: 'Producto creado.',
+                  status: 'success',
+                  isClosable: true,
+                });
+                onClose();
+              }}
+            >
               Crear
             </Button>
           </ModalFooter>
