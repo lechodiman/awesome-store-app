@@ -6,6 +6,7 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  Grid,
   Heading,
   Image,
   Input,
@@ -21,6 +22,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  SimpleGrid,
   Stack,
   Text,
   Textarea,
@@ -29,6 +31,7 @@ import {
   VisuallyHidden,
 } from '@chakra-ui/react';
 import './App.css';
+import ProductCard from './components/ProductCard';
 
 function App() {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -69,17 +72,15 @@ function App() {
         </Box>
       </Box>
 
-      <Box as="main">
+      <Box as="main" px="4">
         <Box maxWidth="6xl" mx="auto" py="6">
-          <Box px="4" py="6">
-            <Box
-              border="4px"
-              borderStyle="dashed"
-              borderColor="gray.200"
-              borderRadius="lg"
-              h="96px"
-            ></Box>
-          </Box>
+          <SimpleGrid gap="5" maxW="full" columns={{ md: 2, lg: 3 }}>
+            {Array(5)
+              .fill('')
+              .map((_, i) => (
+                <ProductCard key={i}></ProductCard>
+              ))}
+          </SimpleGrid>
         </Box>
       </Box>
 
