@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Button,
@@ -31,15 +31,14 @@ type ProductModalFormProps = {
   onClose: () => void;
   title: string;
   initialValues?: Partial<
-    Pick<Product, 'brand' | 'name' | 'price' | 'description'>
+    Pick<Product, 'brand' | 'name' | 'description' | 'price'>
   >;
   onSubmit: (formData: FormData) => Promise<void>;
 };
 
 export type FormValues = Partial<
-  Pick<Product, 'brand' | 'name' | 'description'>
+  Pick<Product, 'brand' | 'name' | 'description' | 'price'>
 > & {
-  price?: string;
   imageFile?: FileList;
 };
 
@@ -49,10 +48,15 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
   children,
   onSubmit: tellParentToSubmit,
   title,
+  initialValues,
 }) => {
   const toast = useToast();
 
-  const { register, handleSubmit, watch } = useForm<FormValues>();
+  const { register, handleSubmit, watch, reset } = useForm<FormValues>();
+
+  useEffect(() => {
+    reset({ ...initialValues });
+  }, [reset, initialValues]);
 
   const imageFileInputValue = watch('imageFile');
 
@@ -67,7 +71,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
         if (value instanceof FileList) {
           formData.append('image', value[0]);
         } else {
-          formData.append(key, value);
+          formData.append(key, value.toString());
         }
       });
 

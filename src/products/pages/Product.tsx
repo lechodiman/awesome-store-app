@@ -33,7 +33,7 @@ const Product = () => {
   const { productId } = useParams<ProductPageParams>();
   const { data: product, isLoading } = useProduct(productId);
 
-  const { isOpen, onClose } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const toast = useToast();
 
@@ -60,7 +60,9 @@ const Product = () => {
             <DeleteProductButton productId={product.productId}>
               Eliminar
             </DeleteProductButton>
-            <Button colorScheme="purple">Editar</Button>
+            <Button colorScheme="purple" onClick={onOpen}>
+              Editar
+            </Button>
           </Stack>
         </Header>
       )}
