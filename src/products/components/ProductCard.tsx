@@ -17,13 +17,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
       overflow="hidden"
     >
       <Box flexShrink="revert">
-        <Image
-          h="48"
-          w="full"
-          objectFit="cover"
-          src={product.imageUrl}
-          alt={product.name}
-        ></Image>
+        <RouterLink to={`/products/${product.productId}`}>
+          <Image
+            h="48"
+            w="full"
+            objectFit="cover"
+            src={product.imageUrl}
+            alt={product.name}
+          ></Image>
+        </RouterLink>
       </Box>
 
       <Box
@@ -35,7 +37,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       >
         <Box flex="1">
           <Text size="sm" color="purple.500">
-            <Link>{product.brand}</Link>
+            {product.brand}
           </Text>
           <Link
             as={RouterLink}
