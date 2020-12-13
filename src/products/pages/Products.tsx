@@ -19,7 +19,7 @@ const Products = () => {
 
   return (
     <div>
-      <Nav></Nav>
+      <Nav />
 
       <Header>
         <Header.Title>Productos</Header.Title>

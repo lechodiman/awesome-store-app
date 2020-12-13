@@ -45,7 +45,9 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
 }) => {
   const toast = useToast();
 
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState, watch } = useForm<FormValues>();
+
+  const imageFileInputValue = watch('imageFile');
 
   const [createProduct] = useCreateProduct();
 
@@ -182,6 +184,11 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
                         />
                       </VisuallyHidden>
                     </Box>
+                    {imageFileInputValue?.length > 0 && (
+                      <Text color="gray.900" fontSize="xs">
+                        {imageFileInputValue[0].name}
+                      </Text>
+                    )}
                   </Stack>
                 </Box>
               </FormControl>
