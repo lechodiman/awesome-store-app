@@ -25,18 +25,20 @@ import {
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import useCreateProduct from '../mutations/useCreateProduct';
+import { Product } from '../../entities/Product';
 
 type ProductModalFormProps = {
   isOpen?: boolean;
   onClose: () => void;
+  initialValues?: Partial<
+    Pick<Product, 'brand' | 'name' | 'price' | 'description'>
+  >;
 };
 
-type FormValues = {
-  name: string;
-  price?: string;
-  description: string;
-  imageFile: FileList;
-  brand: string;
+type FormValues = Partial<
+  Pick<Product, 'brand' | 'name' | 'description' | 'price'>
+> & {
+  imageFile?: FileList;
 };
 
 const ProductModalForm: React.FC<ProductModalFormProps> = ({
@@ -62,7 +64,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
         if (value instanceof FileList) {
           formData.append('image', value[0]);
         } else {
-          formData.append(key, value);
+          formData.append(key, value.toString());
         }
       });
 
@@ -184,7 +186,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
                         />
                       </VisuallyHidden>
                     </Box>
-                    {imageFileInputValue?.length > 0 && (
+                    {imageFileInputValue && imageFileInputValue?.length > 0 && (
                       <Text color="gray.900" fontSize="xs">
                         {imageFileInputValue[0].name}
                       </Text>
