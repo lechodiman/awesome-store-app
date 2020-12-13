@@ -19,6 +19,7 @@ import MainContent from '../../components/MainContent';
 import Nav from '../../components/Nav';
 import useProduct from '../queries/useProduct';
 import { Link as RouterLink } from 'react-router-dom';
+import DeleteProductButton from '../components/DeleteProductButton';
 
 type ProductPageParams = {
   productId: string;
@@ -32,15 +33,17 @@ const Product = () => {
     <div>
       <Nav></Nav>
 
-      <Header>
-        <Header.Title>{product?.name}</Header.Title>
-        <Stack direction="row" spacing="3">
-          <Button colorScheme="red" variant="ghost">
-            Eliminar
-          </Button>
-          <Button colorScheme="purple">Editar</Button>
-        </Stack>
-      </Header>
+      {product && !isLoading && (
+        <Header>
+          <Header.Title>{product.name}</Header.Title>
+          <Stack direction="row" spacing="3">
+            <DeleteProductButton productId={product.productId}>
+              Eliminar
+            </DeleteProductButton>
+            <Button colorScheme="purple">Editar</Button>
+          </Stack>
+        </Header>
+      )}
 
       <MainContent>
         {isLoading || !product ? (
