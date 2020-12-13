@@ -60,14 +60,14 @@ const DeleteProductButton: React.FC<DeleteProductButtonProps> = ({
               </Button>
               <Button
                 colorScheme="red"
-                onClick={() => {
-                  deleteProduct({ productId });
+                onClick={async () => {
+                  onClose();
+                  await deleteProduct({ productId });
                   toast({
                     title: 'Producto eliminado',
                     status: 'success',
                     isClosable: true,
                   });
-                  onClose();
                   history.push('/');
                 }}
                 ml={3}
