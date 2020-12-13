@@ -8,7 +8,7 @@ type CreateProductButtonProps = {};
 const CreateProductButton: React.FC<CreateProductButtonProps> = ({
   children,
 }) => {
-  const { isOpen, onClose } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const toast = useToast();
 
@@ -26,7 +26,9 @@ const CreateProductButton: React.FC<CreateProductButtonProps> = ({
 
   return (
     <>
-      <Button colorScheme="purple">{children}</Button>
+      <Button colorScheme="purple" onClick={onOpen}>
+        {children}
+      </Button>
 
       <ProductModalForm
         title="Nuevo producto"

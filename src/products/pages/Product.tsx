@@ -85,7 +85,7 @@ const Product = () => {
               </BreadcrumbItem>
             </Breadcrumb>
 
-            <SimpleGrid mt="5" gap="5" columns={{ md: 2 }}>
+            <SimpleGrid mt="5" gap="10" columns={{ md: 2 }}>
               <Image
                 src={product?.imageUrl}
                 alt={product.name}
