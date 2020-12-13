@@ -24,12 +24,16 @@ import {
   ModalFooter,
   useDisclosure,
   useToast,
+  Spinner,
+  Center,
 } from '@chakra-ui/react';
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import ProductCard from '../components/ProductCard';
+import useProducts from '../queries/useProducts';
 
 const Products = () => {
+  const { data: products, isLoading } = useProducts();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const toast = useToast();
 
@@ -46,13 +50,19 @@ const Products = () => {
 
       <Box as="main" px="4">
         <Box maxWidth="6xl" mx="auto" py="6">
-          <SimpleGrid gap="5" maxW="full" columns={{ md: 2, lg: 3 }}>
-            {Array(5)
-              .fill('')
-              .map((_, i) => (
-                <ProductCard key={i}></ProductCard>
-              ))}
-          </SimpleGrid>
+          {isLoading ? (
+            <Center>
+              <Spinner color="purple.500" size="lg"></Spinner>
+            </Center>
+          ) : (
+            <SimpleGrid gap="5" maxW="full" columns={{ md: 2, lg: 3 }}>
+              {Array(5)
+                .fill('')
+                .map((_, i) => (
+                  <ProductCard key={i}></ProductCard>
+                ))}
+            </SimpleGrid>
+          )}
         </Box>
       </Box>
 
