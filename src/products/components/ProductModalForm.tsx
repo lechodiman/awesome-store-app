@@ -35,9 +35,8 @@ type ProductModalFormProps = {
   >;
 };
 
-type FormValues = Partial<
-  Pick<Product, 'brand' | 'name' | 'description' | 'price'>
-> & {
+type FormValues = Partial<Pick<Product, 'brand' | 'name' | 'description'>> & {
+  price?: string;
   imageFile?: FileList;
 };
 
@@ -64,7 +63,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
         if (value instanceof FileList) {
           formData.append('image', value[0]);
         } else {
-          formData.append(key, value.toString());
+          formData.append(key, value);
         }
       });
 
