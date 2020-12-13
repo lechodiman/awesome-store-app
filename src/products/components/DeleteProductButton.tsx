@@ -51,7 +51,7 @@ const DeleteProductButton: React.FC<DeleteProductButtonProps> = ({
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              ¿Estás seguro? No podrás deshacer esta desición después.
+              ¿Estás seguro? No podrás deshacer esta decisión después.
             </AlertDialogBody>
 
             <AlertDialogFooter>
