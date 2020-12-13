@@ -24,18 +24,21 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import useCreateProduct from '../mutations/useCreateProduct';
 import { Product } from '../../entities/Product';
 
 type ProductModalFormProps = {
   isOpen?: boolean;
   onClose: () => void;
+  title: string;
   initialValues?: Partial<
     Pick<Product, 'brand' | 'name' | 'price' | 'description'>
   >;
+  onSubmit: (formData: FormData) => Promise<void>;
 };
 
-type FormValues = Partial<Pick<Product, 'brand' | 'name' | 'description'>> & {
+export type FormValues = Partial<
+  Pick<Product, 'brand' | 'name' | 'description'>
+> & {
   price?: string;
   imageFile?: FileList;
 };
@@ -43,14 +46,15 @@ type FormValues = Partial<Pick<Product, 'brand' | 'name' | 'description'>> & {
 const ProductModalForm: React.FC<ProductModalFormProps> = ({
   isOpen = false,
   onClose,
+  children,
+  onSubmit: tellParentToSubmit,
+  title,
 }) => {
   const toast = useToast();
 
-  const { register, handleSubmit, formState, watch } = useForm<FormValues>();
+  const { register, handleSubmit, watch } = useForm<FormValues>();
 
   const imageFileInputValue = watch('imageFile');
-
-  const [createProduct] = useCreateProduct();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
@@ -67,13 +71,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
         }
       });
 
-      await createProduct({ formData });
-
-      toast({
-        title: 'Producto creado.',
-        status: 'success',
-        isClosable: true,
-      });
+      await tellParentToSubmit(formData);
     } catch (error) {
       toast({
         title:
@@ -91,7 +89,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
       <ModalOverlay></ModalOverlay>
       <ModalContent>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <ModalHeader>Nuevo Producto</ModalHeader>
+          <ModalHeader>{title}</ModalHeader>
           <ModalCloseButton></ModalCloseButton>
           <ModalBody>
             <Stack spacing="1">
@@ -199,14 +197,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
             <Button variant="ghost" onClick={onClose}>
               Cancelar
             </Button>
-            <Button
-              isLoading={formState.isSubmitting}
-              type="submit"
-              ml="3"
-              colorScheme="purple"
-            >
-              Crear
-            </Button>
+            {children}
           </ModalFooter>
         </form>
       </ModalContent>

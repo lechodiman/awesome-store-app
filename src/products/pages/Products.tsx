@@ -1,21 +1,14 @@
-import {
-  Button,
-  Center,
-  SimpleGrid,
-  Spinner,
-  useDisclosure,
-} from '@chakra-ui/react';
 import React from 'react';
+import { Center, SimpleGrid, Spinner } from '@chakra-ui/react';
 import Header from '../../components/Header';
 import MainContent from '../../components/MainContent';
 import Nav from '../../components/Nav';
+import CreateProductButton from '../components/CreateProductButton';
 import ProductCard from '../components/ProductCard';
-import ProductModalForm from '../components/ProductModalForm';
 import useProducts from '../queries/useProducts';
 
 const Products = () => {
   const { data: products, isLoading } = useProducts();
-  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <div>
@@ -23,9 +16,7 @@ const Products = () => {
 
       <Header>
         <Header.Title>Productos</Header.Title>
-        <Button colorScheme="purple" onClick={onOpen}>
-          Crear
-        </Button>
+        <CreateProductButton>Crear</CreateProductButton>
       </Header>
 
       <MainContent>
@@ -37,15 +28,11 @@ const Products = () => {
           <SimpleGrid gap="5" maxW="full" columns={{ md: 2, lg: 3 }}>
             {products &&
               products.map((product) => (
-                <ProductCard
-                  product={product}
-                  key={product.productId}
-                ></ProductCard>
+                <ProductCard product={product} key={product.productId} />
               ))}
           </SimpleGrid>
         )}
       </MainContent>
-      <ProductModalForm onClose={onClose} isOpen={isOpen}></ProductModalForm>
     </div>
   );
 };
