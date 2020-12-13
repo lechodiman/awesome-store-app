@@ -1,15 +1,27 @@
 import axios from 'axios';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryCache } from 'react-query';
 import environment from '../../utils/environment';
 
-const createProduct = async () => {
-  const { data } = await axios.post(`${environment.API_BASE_URL}/products`, {});
+type CreateProductParams = {
+  formData: FormData;
+};
+
+const createProduct = async ({ formData }: CreateProductParams) => {
+  const { data } = await axios.post(
+    `${environment.API_BASE_URL}/products`,
+    formData
+  );
 
   return data;
 };
 
 const useCreateProduct = () => {
-  return useMutation(createProduct);
+  const queryCache = useQueryCache();
+  return useMutation(createProduct, {
+    onSettled: () => {
+      queryCache.invalidateQueries('products');
+    },
+  });
 };
 
 export default useCreateProduct;
