@@ -2,8 +2,16 @@ import axios from 'axios';
 import { useMutation } from 'react-query';
 import environment from '../../utils/environment';
 
-const updateProduct = async () => {
-  const { data } = await axios.post(`${environment.API_BASE_URL}/products`, {});
+type UpdateProductParams = {
+  formData: FormData;
+  productId: string;
+};
+
+const updateProduct = async ({ formData, productId }: UpdateProductParams) => {
+  const { data } = await axios.post(
+    `${environment.API_BASE_URL}/products/${productId}`,
+    formData
+  );
 
   return data;
 };

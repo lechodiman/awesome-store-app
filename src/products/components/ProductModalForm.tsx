@@ -33,7 +33,7 @@ type ProductModalFormProps = {
 
 type FormValues = {
   name: string;
-  price: string;
+  price?: string;
   description: string;
   imageFile: FileList;
   brand: string;
@@ -51,21 +51,20 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
 
   const [createProduct] = useCreateProduct();
 
-  const onSubmit: SubmitHandler<FormValues> = async ({
-    description,
-    imageFile,
-    name,
-    brand,
-    price,
-  }) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const formData = new FormData();
 
-      formData.append('name', name);
-      formData.append('price', price);
-      formData.append('description', description);
-      formData.append('brand', brand);
-      formData.append('image', imageFile[0]);
+      Object.entries(data).forEach(([key, value]) => {
+        if (!value) {
+          return;
+        }
+        if (value instanceof FileList) {
+          formData.append('image', value[0]);
+        } else {
+          formData.append(key, value);
+        }
+      });
 
       await createProduct({ formData });
 
@@ -76,7 +75,8 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
       });
     } catch (error) {
       toast({
-        title: 'Hubo un error. Intente más tarde',
+        title:
+          'Hubo un error. Verifique que los datos ingresados esten correctos.',
         status: 'error',
         isClosable: true,
       });
