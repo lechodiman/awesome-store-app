@@ -11,6 +11,8 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -20,6 +22,8 @@ import Nav from '../../components/Nav';
 import useProduct from '../queries/useProduct';
 import { Link as RouterLink } from 'react-router-dom';
 import DeleteProductButton from '../components/DeleteProductButton';
+import useUpdateProduct from '../mutations/useUpdateProduct';
+import ProductModalForm from '../components/ProductModalForm';
 
 type ProductPageParams = {
   productId: string;
@@ -28,6 +32,22 @@ type ProductPageParams = {
 const Product = () => {
   const { productId } = useParams<ProductPageParams>();
   const { data: product, isLoading } = useProduct(productId);
+
+  const { isOpen, onClose } = useDisclosure();
+
+  const toast = useToast();
+
+  const [updateProduct, { isLoading: isUpdating }] = useUpdateProduct();
+
+  const handleUpdateProduct = async (formData: FormData) => {
+    await updateProduct({ formData, productId });
+
+    toast({
+      title: 'Producto actualizado',
+      status: 'success',
+      isClosable: true,
+    });
+  };
 
   return (
     <div>
@@ -94,6 +114,23 @@ const Product = () => {
           </>
         )}
       </MainContent>
+
+      <ProductModalForm
+        title="Actualizar producto"
+        onSubmit={handleUpdateProduct}
+        onClose={onClose}
+        isOpen={isOpen}
+        initialValues={product}
+      >
+        <Button
+          isLoading={isUpdating}
+          type="submit"
+          ml="3"
+          colorScheme="purple"
+        >
+          Actualizar
+        </Button>
+      </ProductModalForm>
     </div>
   );
 };
