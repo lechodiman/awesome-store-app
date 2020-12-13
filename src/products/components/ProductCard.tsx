@@ -1,18 +1,13 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Heading, Image, Link, Text } from '@chakra-ui/react';
+import { Product } from '../../entities/Product';
 
-const ProductCard = () => {
-  const product = {
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
-    productId: 'some-id',
-    brand: 'Nike',
-    name: 'Zapatillas',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.',
-    price: '2.000',
-  };
+type ProductCardProps = {
+  product: Product;
+};
 
+const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Box
       d="flex"
@@ -42,7 +37,12 @@ const ProductCard = () => {
           <Text size="sm" color="purple.500">
             <Link>{product.brand}</Link>
           </Text>
-          <Link d="block" _hover={{ textDecor: 'none' }}>
+          <Link
+            as={RouterLink}
+            to={`/products/${product.productId}`}
+            d="block"
+            _hover={{ textDecor: 'none' }}
+          >
             <Heading
               mt="2"
               letterSpacing="7"

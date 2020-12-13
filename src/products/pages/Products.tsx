@@ -56,10 +56,12 @@ const Products = () => {
             </Center>
           ) : (
             <SimpleGrid gap="5" maxW="full" columns={{ md: 2, lg: 3 }}>
-              {Array(5)
-                .fill('')
-                .map((_, i) => (
-                  <ProductCard key={i}></ProductCard>
+              {products &&
+                products.map((product) => (
+                  <ProductCard
+                    product={product}
+                    key={product.productId}
+                  ></ProductCard>
                 ))}
             </SimpleGrid>
           )}
