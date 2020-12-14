@@ -1,14 +1,25 @@
-import React from 'react';
-import { Center, SimpleGrid, Spinner } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import {
+  Box,
+  Center,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  SimpleGrid,
+  Spinner,
+  Stack,
+} from '@chakra-ui/react';
 import Header from '../../components/Header';
 import MainContent from '../../components/MainContent';
 import Nav from '../../components/Nav';
 import CreateProductButton from '../components/CreateProductButton';
 import ProductCard from '../components/ProductCard';
 import useProducts from '../queries/useProducts';
+import { SearchIcon } from '@chakra-ui/icons';
 
 const Products = () => {
-  const { data: products, isLoading } = useProducts();
+  const [search, setSearch] = useState('');
+  const { data: products, isLoading } = useProducts(search);
 
   return (
     <div>
@@ -16,7 +27,20 @@ const Products = () => {
 
       <Header>
         <Header.Title>Productos</Header.Title>
-        <CreateProductButton>Crear</CreateProductButton>
+        <Stack ml="2" direction="row" spacing="2">
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<SearchIcon color="gray.300" />}
+            />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Busca productos"
+            />
+          </InputGroup>
+          <CreateProductButton>Crear</CreateProductButton>
+        </Stack>
       </Header>
 
       <MainContent>
