@@ -182,7 +182,6 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
                       >
                         Sube una imágen
                       </FormLabel>
-                      <Text fontSize="xs">o arrastra y suelta acá.</Text>
                       <VisuallyHidden>
                         <input
                           type="file"
