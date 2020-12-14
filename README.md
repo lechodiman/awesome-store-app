@@ -11,6 +11,7 @@ Frontend application using React and Typescript for a fictional store of product
 - Search products by brand, productId, name or description.
 - _Easter egg_: If you enter a palindrome in the search bar, the products will have a 20% off.
 - Mobile friendly
+- A 200 ms delay was manually added for the requests to get all products and to get a single product. This was done to avoid a flashing loading spinner.
 
 ## Technologies
 
