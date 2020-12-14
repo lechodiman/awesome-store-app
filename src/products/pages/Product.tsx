@@ -53,19 +53,17 @@ const Product = () => {
     <div>
       <Nav></Nav>
 
-      {product && !isLoading && (
-        <Header>
-          <Header.Title>{product.name}</Header.Title>
-          <Stack direction="row" spacing="3">
-            <DeleteProductButton productId={product.productId}>
-              Eliminar
-            </DeleteProductButton>
-            <Button colorScheme="purple" onClick={onOpen}>
-              Editar
-            </Button>
-          </Stack>
-        </Header>
-      )}
+      <Header>
+        <Header.Title>{product?.name}</Header.Title>
+        <Stack direction="row" spacing="3">
+          <DeleteProductButton productId={productId}>
+            Eliminar
+          </DeleteProductButton>
+          <Button colorScheme="purple" onClick={onOpen}>
+            Editar
+          </Button>
+        </Stack>
+      </Header>
 
       <MainContent>
         {isLoading || !product ? (

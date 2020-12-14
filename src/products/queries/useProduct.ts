@@ -8,6 +8,7 @@ type FetchProductParams = {
 };
 
 const fetchProduct = async ({ productId }: FetchProductParams) => {
+  await new Promise((resolve) => setTimeout(resolve, 200));
   const { data } = await axios.get<Product>(
     `${environment.API_BASE_URL}/products/${productId}`
   );
