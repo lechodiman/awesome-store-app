@@ -9,7 +9,7 @@ Frontend application using React and Typescript for a fictional store of product
 - List products
 - Delete a product
 - Search products by brand, productId, name or description.
-- _Easter egg_: If you enter a palindrome in the search bar, the products will have a 50% off.
+- _Easter egg_: If you enter a palindrome in the search bar, the products will have a 20% off.
 - Mobile friendly
 
 ## Technologies

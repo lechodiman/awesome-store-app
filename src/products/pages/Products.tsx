@@ -58,7 +58,7 @@ const Products = () => {
                   product={{
                     ...product,
                     price: isPalindrome(search)
-                      ? product.price / 2
+                      ? product.price * 0.8
                       : product.price,
                   }}
                   key={product.productId}
