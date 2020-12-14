@@ -57,7 +57,7 @@ const Products = () => {
                 <ProductCard
                   product={{
                     ...product,
-                    price: isPalindrome(search)
+                    price: isPalindrome(validatedSearch || '')
                       ? product.price * 0.8
                       : product.price,
                   }}
