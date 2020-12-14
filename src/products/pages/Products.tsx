@@ -19,7 +19,9 @@ import isPalindrome from '../../utils/isPalindrome';
 
 const Products = () => {
   const [search, setSearch] = useState('');
-  const { data: products, isLoading } = useProducts(search);
+
+  const validatedSearch = search.length >= 3 ? search : undefined;
+  const { data: products, isLoading } = useProducts(validatedSearch);
 
   return (
     <div>
