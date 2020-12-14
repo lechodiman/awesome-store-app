@@ -32,7 +32,9 @@ const fetchProducts = ({ search }: FetchProductsParams) => {
 
 const useProducts = (search?: string) => {
   const queryKey = search ? ['search', search] : 'products';
-  const query = useQuery(queryKey, () => fetchProducts({ search }));
+  const query = useQuery(queryKey, () =>
+    fetchProducts({ search: search || undefined })
+  );
 
   return query;
 };
