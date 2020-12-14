@@ -105,7 +105,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
                 ></Input>
               </FormControl>
 
-              <FormControl id="name">
+              <FormControl id="brand">
                 <FormLabel>Marca</FormLabel>
                 <Input
                   name="brand"
