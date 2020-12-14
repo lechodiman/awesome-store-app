@@ -99,12 +99,18 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
             <Stack spacing="1">
               <FormControl id="name">
                 <FormLabel>Nombre</FormLabel>
-                <Input name="name" ref={register}></Input>
+                <Input
+                  name="name"
+                  ref={register({ required: !initialValues })}
+                ></Input>
               </FormControl>
 
               <FormControl id="name">
                 <FormLabel>Marca</FormLabel>
-                <Input name="brand" ref={register}></Input>
+                <Input
+                  name="brand"
+                  ref={register({ required: !initialValues })}
+                ></Input>
               </FormControl>
 
               <FormControl id="price">
@@ -112,7 +118,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
                 <NumberInput>
                   <NumberInputField
                     name="price"
-                    ref={register}
+                    ref={register({ required: !initialValues })}
                   ></NumberInputField>
                   <NumberInputStepper>
                     <NumberIncrementStepper></NumberIncrementStepper>
@@ -125,7 +131,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
                 <FormLabel>Descripción</FormLabel>
                 <Textarea
                   name="description"
-                  ref={register}
+                  ref={register({ required: !initialValues })}
                   placeholder="Una breve descripción del producto."
                 ></Textarea>
               </FormControl>
@@ -183,7 +189,7 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
                           id="file-upload"
                           name="imageFile"
                           accept="image/*"
-                          ref={register}
+                          ref={register({ required: !initialValues })}
                         />
                       </VisuallyHidden>
                     </Box>
