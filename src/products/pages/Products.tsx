@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Box,
   Center,
   Input,
   InputGroup,
@@ -16,6 +15,7 @@ import CreateProductButton from '../components/CreateProductButton';
 import ProductCard from '../components/ProductCard';
 import useProducts from '../queries/useProducts';
 import { SearchIcon } from '@chakra-ui/icons';
+import isPalindrome from '../../utils/isPalindrome';
 
 const Products = () => {
   const [search, setSearch] = useState('');
@@ -52,7 +52,15 @@ const Products = () => {
           <SimpleGrid gap="5" maxW="full" columns={{ md: 2, lg: 3 }}>
             {products &&
               products.map((product) => (
-                <ProductCard product={product} key={product.productId} />
+                <ProductCard
+                  product={{
+                    ...product,
+                    price: isPalindrome(search)
+                      ? product.price / 2
+                      : product.price,
+                  }}
+                  key={product.productId}
+                />
               ))}
           </SimpleGrid>
         )}
