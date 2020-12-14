@@ -2,6 +2,8 @@
 
 Frontend application using React and Typescript for a fictional store of products.
 
+![Desktop](docs/awesome-store-app.netlify.app_.png)
+
 ## Functionalities
 
 - Create product with images
