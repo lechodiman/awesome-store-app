@@ -118,7 +118,8 @@ const ProductModalForm: React.FC<ProductModalFormProps> = ({
                 <NumberInput>
                   <NumberInputField
                     name="price"
-                    ref={register({ required: !initialValues })}
+                    min={1}
+                    ref={register({ required: !initialValues, min: 1 })}
                   ></NumberInputField>
                   <NumberInputStepper>
                     <NumberIncrementStepper></NumberIncrementStepper>
