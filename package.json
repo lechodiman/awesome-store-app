@@ -51,6 +51,10 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.6"
+    "@testing-library/cypress": "^7.0.3",
+    "@types/react-router-dom": "^5.1.6",
+    "cypress": "^6.2.0",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-mocha": "^8.0.0"
   }
 }

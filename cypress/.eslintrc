@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["cypress", "mocha"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "extends": ["plugin:cypress/recommended"],
+  "env": {
+    "cypress/globals": true
+  },
+  "rules": {
+    "mocha/no-exclusive-tests": "error"
+  }
+}
